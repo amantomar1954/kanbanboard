@@ -1,12 +1,9 @@
+import { generateId } from '@/lib/utils';
 import { TreeNode } from '@/components/tree-view/types';
 
 /**
- * Generates a unique short ID for cards and columns
+ * SAMPLE_TREE_DATA provides a complex nested structure for the Tree View demonstration.
  */
-export function generateId() {
-    return Math.random().toString(36).substr(2, 9);
-}
-
 export const SAMPLE_TREE_DATA: TreeNode[] = [
     {
         id: generateId(),

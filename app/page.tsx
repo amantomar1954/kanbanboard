@@ -99,7 +99,16 @@ export default function Page() {
   );
 }
 
-function TechDetail({ number, title, description, items, accentColor, dotColor }: any) {
+interface TechDetailItem {
+  number: string;
+  title: string;
+  description: string;
+  items: string[];
+  accentColor: string;
+  dotColor: string;
+}
+
+function TechDetail({ number, title, description, items, accentColor, dotColor }: TechDetailItem) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">

@@ -1,11 +1,6 @@
-'use client';
-
 import { useState, useCallback } from 'react';
 import { TreeNode as TreeNodeType } from './types';
-
-function generateId() {
-    return Math.random().toString(36).substr(2, 9);
-}
+import { generateId } from '@/lib/utils';
 
 function deleteNodeRecursive(nodes: TreeNodeType[], id: string): TreeNodeType[] {
     return nodes.filter((node) => {

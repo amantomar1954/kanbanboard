@@ -58,6 +58,9 @@ export function TreeNode({
     setIsEditing(false);
   };
 
+  /**
+   * Triggers the removal of this node and all its descendants.
+   */
   const handleDelete = () => {
     onDelete(node.id);
     toast.success("Node deleted", {
@@ -65,6 +68,10 @@ export function TreeNode({
     });
   };
 
+  /**
+   * Handles the start of a drag-and-drop operation.
+   * Stores the nodeId and the original parent's index for reference.
+   */
   const handleDragStart = (e: React.DragEvent) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('nodeId', node.id);
@@ -81,12 +88,17 @@ export function TreeNode({
     setDraggedOver(false);
   };
 
+  /**
+   * Handles the drop operation. Moves the dragged node to become
+   * the first child of this node.
+   */
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setDraggedOver(false);
 
     const draggedId = e.dataTransfer.getData('nodeId');
+    // Prevent dropping a node onto itself or into a recursive loop
     if (draggedId && draggedId !== node.id) {
       onMove(draggedId, node.id, 0);
       toast.success("Hierarchy updated");

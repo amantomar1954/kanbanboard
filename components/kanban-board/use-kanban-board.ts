@@ -1,14 +1,6 @@
-'use client';
-
 import { useState, useCallback } from 'react';
 import { KanbanColumn, KanbanCard } from './types';
-
-/**
- * Generates a unique short ID for cards and columns
- */
-export function generateId() {
-    return Math.random().toString(36).substr(2, 9);
-}
+import { generateId } from '@/lib/utils';
 
 export const DEFAULT_COLUMNS: KanbanColumn[] = [
     {

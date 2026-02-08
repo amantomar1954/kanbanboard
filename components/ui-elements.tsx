@@ -4,6 +4,10 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 
+/**
+ * Premium Button component with multiple variants, sizes, and micro-animations.
+ * Supports Radix UI Slot for polymorphic usage.
+ */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'default' | 'ghost' | 'outline';
     size?: 'default' | 'sm' | 'icon';
@@ -40,6 +44,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = 'Button';
 
+/**
+ * Modern Input component with refined focus states and consistent typography.
+ */
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
