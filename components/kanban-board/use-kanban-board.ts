@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { KanbanColumn, KanbanCard } from './types';
-import { generateId } from '@/lib/utils';
+import { generateId } from './utils';
 
 export const DEFAULT_COLUMNS: KanbanColumn[] = [
     {

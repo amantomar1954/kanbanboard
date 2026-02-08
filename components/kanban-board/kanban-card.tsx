@@ -1,14 +1,9 @@
 'use client';
 
-import React from "react"
-
-import { useState } from 'react';
-import { Trash2, Edit2, Check, X } from 'lucide-react';
+import React, { useState } from "react";
+import { Trash2, Edit2 } from 'lucide-react';
 import { KanbanCard as KanbanCardType } from './types';
-import { Button, Input } from '@/components/ui-elements';
-
-import { toast } from "sonner"
-import { MoreVertical } from "lucide-react"
+import { toast } from "sonner";
 
 interface KanbanCardProps {
   card: KanbanCardType;
@@ -27,90 +22,71 @@ export function KanbanCard({
   const [editValue, setEditValue] = useState(card.title);
 
   const handleSave = () => {
-    if (editValue.trim() && editValue !== card.title) {
-      onEdit(card.id, editValue.trim());
-      toast.success("Task updated");
+    const trimmedValue = editValue.trim();
+    if (trimmedValue && trimmedValue !== card.title) {
+      onEdit(card.id, trimmedValue);
+      toast.success("Updated");
     }
     setIsEditing(false);
-  };
-
-  const handleDelete = () => {
-    onDelete(card.id);
-    toast.success("Task deleted", {
-      description: `"${card.title}" has been removed.`,
-      action: {
-        label: "Undo",
-        onClick: () => console.log("Undo delete"), // Logic for undo would be more complex, but providing UI
-      },
-    });
   };
 
   return (
     <div
       draggable
       onDragStart={(e) => onDragStart(e, card.id)}
-      className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-violet-200 cursor-grab active:cursor-grabbing transition-all duration-200 group relative"
+      className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-violet-200 transition-all cursor-grab active:cursor-grabbing group relative"
     >
       {isEditing ? (
-        <div className="space-y-3 animate-in fade-in duration-200">
-          <Input
+        <div className="space-y-3">
+          <input
             autoFocus
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
-            className="text-sm border-stone-200 focus-visible:ring-violet-500"
+            className="w-full text-sm border border-stone-200 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500"
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSave();
               if (e.key === 'Escape') setIsEditing(false);
             }}
           />
           <div className="flex justify-end gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 text-xs text-stone-500 hover:bg-stone-100 rounded-md"
+            <button
+              className="px-3 py-1.5 text-xs font-medium text-stone-500 hover:bg-stone-100 rounded-md transition-colors"
               onClick={() => setIsEditing(false)}
             >
               Cancel
-            </Button>
-            <Button
-              size="sm"
-              className="h-7 text-xs bg-violet-600 hover:bg-violet-700 text-white rounded-md"
+            </button>
+            <button
+              className="px-3 py-1.5 text-xs font-medium bg-violet-600 text-white rounded-md hover:bg-violet-700 transition-colors"
               onClick={handleSave}
             >
               Save
-            </Button>
+            </button>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col gap-3">
           <p
             onDoubleClick={() => setIsEditing(true)}
-            className="text-sm font-semibold text-stone-800 leading-snug break-words group-hover:text-violet-600 transition-colors mb-4"
+            className="text-[14px] font-semibold text-stone-800 leading-snug break-words"
           >
             {card.title}
           </p>
 
-          <div className="flex items-center justify-center w-full opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-0 h-7 w-7 text-stone-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg"
-                onClick={() => setIsEditing(true)}
-                title="Edit task"
-              >
-                <Edit2 className="h-3.5 w-3.5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-0 h-7 w-7 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
-                onClick={handleDelete}
-                title="Delete task"
-              >
-                <Trash2 className="h-3.5 w-3.5" />
-              </Button>
-            </div>
+          <div className="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              className="p-1.5 text-stone-400 hover:text-violet-600 hover:bg-violet-50 rounded-md transition-colors"
+              onClick={() => setIsEditing(true)}
+              title="Edit"
+            >
+              <Edit2 className="h-3.5 w-3.5" />
+            </button>
+            <button
+              className="p-1.5 text-stone-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors"
+              onClick={() => onDelete(card.id)}
+              title="Delete"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
       )}

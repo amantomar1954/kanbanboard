@@ -21,7 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased text-stone-900 bg-stone-50">
+        <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-stone-100 py-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center items-center">
+            <h1 className="text-xl font-bold tracking-tight text-stone-900">
+              kanbanboard
+            </h1>
+          </div>
+        </header>
         {children}
         <Toaster richColors position="top-center" />
       </body>
